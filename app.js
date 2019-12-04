@@ -4,9 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-
+const mongoose = require('mongoose');
+var passport  = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+require('./config/passport');
 
 var app = express();
 // fix cors
@@ -21,9 +23,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
+
+mongoose.Promise = Promise;
+
+const run = async() => {
+  
+    await mongoose.connect('mongodb+srv://admin02:123@cluster1-4vrfk.mongodb.net/Server', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+}
+run().catch(error => console.error(error))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
