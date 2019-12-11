@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
-
 const userController = require('../controller/user')
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.send("API is working properly");
+});
+// router.get('/', Usercontroller.listUsers);
 
-router.get('/', userController.defaultRouter);
+router.get('/list', userController.listUsers);
 
-router.post('/login', userController.loginUser)
-
-router.post('/register',userController.registerUser);
-
-router.get('/me', userController.getUser);
 module.exports = router;

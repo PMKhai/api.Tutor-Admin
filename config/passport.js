@@ -2,7 +2,7 @@ const passport = require('passport'),
     localStrategy = require('passport-local').Strategy,
     JWTstrategy = require('passport-jwt').Strategy,
     ExtractJWT = require('passport-jwt').ExtractJwt,
-    User = require('../model/user')
+    User = require('../model/admin')
 
 passport.use(
     'login',
@@ -16,7 +16,7 @@ passport.use(
             try {
               const user = await User.getUser(email)
                     if (user === null) {
-                        return done(null, false, { message: 'iincorrect email or password' });
+                        return done(null, false, { message: 'incorrect email or password' });
                     }
                     const isValidPass = await User.validPassword(email,password);
                       if (!isValidPass){
@@ -42,7 +42,6 @@ const opts = {
     new JWTstrategy(opts, (jwt_payload, done) => {
       try {
         User.findUserById(jwt_payload.id).then(user => {
-          console.log('alo alo')
 
           console.log(jwt_payload.id)
           if (user) {

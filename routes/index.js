@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var Usercontroller = require('../controller/user');
+var Usercontroller = require('../controller/admin');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.send("API is working properly");
 });
 
-router.get('/users', Usercontroller.listUsers);
 
 module.exports = router;

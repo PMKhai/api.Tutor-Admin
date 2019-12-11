@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 var passport  = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
+var skillRouter = require('./routes/skill');
 require('./config/passport');
 
 var app = express();
@@ -26,7 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
 app.use('/', indexRouter);
-app.use('/user', usersRouter);
+app.use('/users', usersRouter);
+app.use('/admin', adminRouter);
+app.use('/skills' , skillRouter)
 
 mongoose.Promise = Promise;
 
