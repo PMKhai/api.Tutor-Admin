@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var skillRouter = require('./routes/skill');
+var contractRouter = require('./routes/contract');
 require('./config/passport');
 
 var app = express();
@@ -31,6 +32,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 app.use('/skills' , skillRouter)
+app.use('/contracts', contractRouter);
 
 mongoose.Promise = Promise;
 

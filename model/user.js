@@ -7,7 +7,7 @@ const user = new Schema ({
     email: String,
     password: String,
     isTutor: Boolean,
-    isActive: Boolean,
+    isActivated: Boolean,
     isActiveToken: String,
     name: String,
     p_number: String,
