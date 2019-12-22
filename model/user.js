@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const USERS = 'Users';
+const ObjectID = require('mongodb').ObjectID;
+
 const user = new Schema ({
     email: String,
     password: String,
@@ -33,7 +35,23 @@ const listUsers = async(req,res)=>{
     })
 }
 
+const updateUser = async (values ,id)=>{
+    return await list.findByIdAndUpdate(id,{
+        isTutor: values.isTutor,
+        isActivated: values.isActivated,
+        isActiveToken: values.isActiveToken,
+        name: values.name,
+        p_number: values.p_number,
+        urlAvatar: values.urlAvatar,
+        address: values.address,
+        overview: values.overview,
+        price: values.price,
+        rating:values.rating 
+    })
+}
+
 module.exports = {
     list : list,
-    listUsers : listUsers
+    listUsers : listUsers,
+    updateUser:updateUser
 }
