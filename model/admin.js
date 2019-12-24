@@ -20,7 +20,7 @@ const user = new Schema(
 const list = mongoose.model(USERS, user);
 
 const getUser = async (email) => {
-    return await list.findOne({ 'email': email });
+  return await list.findOne({ 'email': email });
 };
 
 const findUserById = async (id) => {
@@ -31,37 +31,53 @@ const saveUser = async (newuser) => {
   const NewUser = new list(newuser);
   bcrypt.hash(newuser.password, saltRounds, function (err, hash) {
     NewUser.password = hash;
-    NewUser.save((err) => {});
-})
+    NewUser.save((err) => { });
+  })
 };
 const validPassword = async (email, password) => {
-    const user = await getUser(email);
-    if (!user)
-        return false;
-    else {
-        if (user.active == false) {
-            return false
-        }
-        return await bcrypt.compare(password, user.password);
+  const user = await getUser(email);
+  if (!user)
+    return false;
+  else {
+    if (user.active == false) {
+      return false
     }
+    return await bcrypt.compare(password, user.password);
+  }
 };
-const listUsers = async(req,res)=>{
-    list.find({}).exec((err,user)=>{
-        if(err){
-            console.log('load list that bai');
-        }
-        else{
-            res.json(user)
-        }
-    })
+const listUsers = async (req, res) => {
+  list.find({}).exec((err, user) => {
+    if (err) {
+      console.log('load list that bai');
+    }
+    else {
+      res.json({
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        sex: user.sex,
+        address: user.address,
+        phone: user.phone,
+        identity: user.identity,
+      })
+    }
+  })
 }
 
-const getUserByEmail = async (req,res)=>{
-  list.findOne({ 'email': req.body.email }).exec((err,user)=>{
-    if (err){
+const getUserByEmail = async (req, res) => {
+  list.findOne({ 'email': req.body.email }).exec((err, user) => {
+    if (err) {
       console.log('load user by email false');
     } else {
-      res.json(user)
+      res.json({
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        sex: user.sex,
+        address: user.address,
+        phone: user.phone,
+        identity: user.identity,
+      })
     }
   });
 }
@@ -73,7 +89,7 @@ module.exports = {
   getUser: getUser,
   findUserById: findUserById,
   saveUser: saveUser,
-  validPassword : validPassword,
+  validPassword: validPassword,
   listUsers: listUsers,
   getUserByEmail: getUserByEmail
 };

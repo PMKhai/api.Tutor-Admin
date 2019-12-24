@@ -9,5 +9,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/list', userController.listUsers);
 router.post('/updateUser',userController.updateUser);
+router.post('/getUser', userController.getUser);
 
 module.exports = router;
