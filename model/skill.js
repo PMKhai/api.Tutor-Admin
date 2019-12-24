@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const SKILL = 'Skills';
 const skill = new Schema ({
     name: String,
+    description : String,
     imgUrl:String
 },{
     collection : SKILL

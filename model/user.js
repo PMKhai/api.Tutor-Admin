@@ -74,9 +74,14 @@ const getUser = async (res, id) => {
     })
 }
 
+const deleteUser = async(email)=>{
+    return await list.findOneAndDelete({email:email})
+}
+
 module.exports = {
     list: list,
     listUsers: listUsers,
     updateUser: updateUser,
-    getUser: getUser
+    getUser: getUser,
+    deleteUser:deleteUser
 }

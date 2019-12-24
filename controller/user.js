@@ -47,3 +47,18 @@ exports.getUser = (req,res)=>{
     }
   })(req, res);
 }
+
+exports.deleteUser = (req,res)=>{
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    if (err|| !user ) {
+      console.log(err);
+    }
+    if (info != undefined) {
+      console.log(info.message);
+      res.send(info.message);
+    } else {
+      var email = req.body.email;
+      return users.deleteUser(email)
+    }
+  })(req, res);
+}
