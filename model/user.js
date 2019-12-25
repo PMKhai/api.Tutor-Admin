@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const USERS = 'Users';
-const ObjectID = require('mongodb').ObjectID;
 
 const user = new Schema({
     email: String,

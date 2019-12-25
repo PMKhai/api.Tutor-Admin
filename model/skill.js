@@ -26,8 +26,13 @@ const newSkill = async (newskill) => {
     NewSkill.save((err) => {});
 }
 
+
+const deleteSkill = async(name)=>{
+    return await list.findOneAndDelete({name:name})
+}
 module.exports = {
     list: list,
     listSkill : listSkill,
-    newSkill : newSkill
+    newSkill : newSkill,
+    deleteSkill: deleteSkill
   };
