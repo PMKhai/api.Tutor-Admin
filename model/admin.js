@@ -51,15 +51,7 @@ const listUsers = async (req, res) => {
       console.log('load list that bai');
     }
     else {
-      res.json({
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        sex: user.sex,
-        address: user.address,
-        phone: user.phone,
-        identity: user.identity,
-      })
+      res.json(user)
     }
   })
 }

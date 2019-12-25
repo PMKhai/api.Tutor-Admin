@@ -7,7 +7,15 @@ const contract = new Schema ({
     status:String,
     payment:String,
     dayOfPayment : Date,
-    dayOfHire : Date
+    dayOfHire : Date,
+    hourlyPrice:Number,
+    weeklyLimit:Number,
+    monthlyLimit: Number,
+    weeklyBonus:Number,
+    totalHour:Number,
+    totalMoney:Number,
+    isPaid:Number,
+    orderId: String
 },{
     collection : CONTRACTS
 });
@@ -25,9 +33,16 @@ const listContract= async(req,res)=>{
     })
 }
 
+const UpdateStatus = async (id,status)=>{
+    return await list.findByIdAndUpdate(id,{
+        status:status
+    })
+}
+
 
 module.exports = {
     list: list,
     listContract : listContract,
+    UpdateStatus: UpdateStatus
   };
 
