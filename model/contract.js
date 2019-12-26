@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var ISODate = require("isodate");
 const CONTRACTS = 'Contracts';
 const contract = new Schema ({
     tutor: String,
@@ -15,7 +16,9 @@ const contract = new Schema ({
     totalHour:Number,
     totalMoney:Number,
     isPaid:Number,
-    orderId: String
+    orderId: String,
+    priceTutor:Number,
+    priceAdmin:Number
 },{
     collection : CONTRACTS
 });
@@ -33,16 +36,52 @@ const listContract= async(req,res)=>{
     })
 }
 
-const UpdateStatus = async (id,status)=>{
-    return await list.findByIdAndUpdate(id,{
-        status:status
+const listSevenDayContract= async(res)=>{
+    return await list.aggregate( [
+        {
+          $group: {
+              
+            _id: { day: { $dayOfYear: { "$dateFromString": { "dateString": "$dayOfHire" }} } },
+             data: { $sum:"$priceAdmin" }
+          }
+        }
+      ] ).exec((err,contract)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json(contract)
+        }
     })
 }
+
+
+const UpdateStatus = async (id,status,money)=>{
+    var tutor = 0
+    var admin = 0
+    if (status == 'done'){
+       console.log(money)
+    return await list.findByIdAndUpdate(id,{
+        status:status,
+        priceTutor : parseInt(money*0.9, 10),
+        priceAdmin :  parseInt(money*0.1, 10)
+    })
+} else {
+    return await list.findByIdAndUpdate(id,{
+        status:status,
+        priceTutor : 0,
+        priceAdmin :  0
+    })
+}
+}
+
+
 
 
 module.exports = {
     list: list,
     listContract : listContract,
-    UpdateStatus: UpdateStatus
+    UpdateStatus: UpdateStatus,
+    listSevenDayContract: listSevenDayContract
   };
 

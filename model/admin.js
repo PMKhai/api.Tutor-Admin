@@ -14,6 +14,7 @@ const user = new Schema(
     address: String,
     phone: String,
     identity: String,
+    wallet : Number
   },
   { collection: USERS }
 );
@@ -74,6 +75,15 @@ const getUserByEmail = async (req, res) => {
   });
 }
 
+const updateWallet = async (value)=>{
+  // const price = wallet+(value * 0.1)
+  list.update({
+    wallet : price
+  },{multi:true}, function(err, res) {
+    if (err) { callback(err, null);
+    } else { callback(null, res);
+    }})};
+  
 
 
 module.exports = {
@@ -83,5 +93,6 @@ module.exports = {
   saveUser: saveUser,
   validPassword: validPassword,
   listUsers: listUsers,
-  getUserByEmail: getUserByEmail
+  getUserByEmail: getUserByEmail,
+  updateWallet: updateWallet
 };

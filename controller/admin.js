@@ -82,7 +82,22 @@ exports.logout = async (req, res) => {
 
 }
 
-exports.getUser = function (req, res, next) {
+exports.updateWallet = (req,res)=>{
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    if (err|| !user ) {
+      console.log(err);
+    }
+    if (info != undefined) {
+      console.log(info.message);
+      res.send(info.message);
+    } else {
+      var price = req.body.price;
+      return  Admin.updateWallet(price)
+    }
+  })(req, res);
+}
+
+exports.getUser = function (req, res) {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
     if (err) {
 
@@ -103,10 +118,10 @@ exports.getUser = function (req, res, next) {
         identity: user.identity,
       }});
     }
-  })(req, res, next);
+  })(req, res);
 }
 
-exports.getUserByEmail = (req, res, next) => {
+exports.getUserByEmail = (req, res) => {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
     if (err || !user) {
       console.log(err);
@@ -118,5 +133,5 @@ exports.getUserByEmail = (req, res, next) => {
       return Admin.getUserByEmail(req, res)
 
     }
-  })(req, res, next);
+  })(req, res);
 }

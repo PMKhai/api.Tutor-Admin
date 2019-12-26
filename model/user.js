@@ -16,7 +16,7 @@ const user = new Schema({
     address: String,
     overview: String,
     price: Number,
-    rating: Number
+    rating: Number, 
 }, {
     collection: USERS
 });
@@ -75,6 +75,7 @@ const getUser = async (res, id) => {
 
 const deleteUser = async(email)=>{
     return await list.findOneAndDelete({email:email})
+    return list.updateMany
 }
 
 module.exports = {
