@@ -36,12 +36,31 @@ const listContract= async(req,res)=>{
     })
 }
 
-const listSevenDayContract= async(res)=>{
+const BUDGET = async(res)=>{
     return await list.aggregate( [
         {
           $group: {
               
-            _id: { day: { $dayOfYear: { "$dateFromString": { "dateString": "$dayOfHire" }} } },
+            _id: null,
+             data: { $sum:"$totalMoney" }
+          }
+        }
+      ] ).exec((err,contract)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json(contract)
+        }
+    })
+}
+
+const TOTAL = async(res)=>{
+    return await list.aggregate( [
+        {
+          $group: {
+              
+            _id: null,
              data: { $sum:"$priceAdmin" }
           }
         }
@@ -54,6 +73,8 @@ const listSevenDayContract= async(res)=>{
         }
     })
 }
+
+
 
 
 const UpdateStatus = async (id,status,money)=>{
@@ -82,6 +103,7 @@ module.exports = {
     list: list,
     listContract : listContract,
     UpdateStatus: UpdateStatus,
-    listSevenDayContract: listSevenDayContract
+    BUDGET: BUDGET,
+    TOTAL: TOTAL
   };
 

@@ -33,7 +33,7 @@ exports.listContract = (req,res)=>{
     })(req, res);
   }
 
-  exports.listSevenDayContract = (req,res)=>{
+  exports.BUDGET = (req,res)=>{
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
       if (err|| !user ) {
         console.log(err);
@@ -43,7 +43,21 @@ exports.listContract = (req,res)=>{
         res.send(info.message);
       } else {
 
-        return  Contract.listSevenDayContract(res)
+        return  Contract.BUDGET(res)
+      }
+    })(req, res);
+  }
+  exports.TOTAL = (req,res)=>{
+    passport.authenticate('jwt', { session: false }, (err, user, info) => {
+      if (err|| !user ) {
+        console.log(err);
+      }
+      if (info != undefined) {
+        console.log(info.message);
+        res.send(info.message);
+      } else {
+
+        return  Contract.TOTAL(res)
       }
     })(req, res);
   }

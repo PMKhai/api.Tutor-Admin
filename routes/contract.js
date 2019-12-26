@@ -4,5 +4,7 @@ const contractController = require('../controller/contract');
 
 router.get('/', contractController.listContract);
 router.post('/UpdateStatus', contractController.UpdateStatus)
-router.get('/listSevenDayContract', contractController.listSevenDayContract)
+router.get('/BUDGET', contractController.BUDGET)
+router.get('/TOTAL', contractController.TOTAL)
+
 module.exports = router
